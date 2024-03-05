@@ -4,7 +4,10 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {provideAnimations} from "@angular/platform-browser/animations";
+import {provideToastr} from "ngx-toastr";
+import {adminHttpInterceptor} from "./interceptors/admin-http.interceptor";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideHttpClient(/*withInterceptors()*/), provideAnimationsAsync()]
+  providers: [provideRouter(routes),provideHttpClient(withInterceptors([adminHttpInterceptor])), provideAnimationsAsync(),provideAnimations(), provideToastr()]
 };

@@ -1,0 +1,38 @@
+<h1 class="text-center">Bienvenue sur l'accès d'administration</h1>
+
+
+<a [routerLink]="['/admin/ajout']">
+  <button class="btn btn-success d-block mx-auto my-3">Ajouter un nouveau voyage</button>
+</a>
+
+<table class="table" *ngIf="!isLoading">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Destination</th>
+    <th scope="col">Lattitude</th>
+    <th scope="col">Longitude</th>
+    <th scope="col">Type</th>
+    <th scope="col">Nombre d'étoile</th>
+    <th scope="col">Image principal</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let voyage of voyages">
+    <th scope="row">{{ voyage.id }}</th>
+    <td>{{ voyage.destination }}</td>
+    <td>{{ voyage.lattitude }}</td>
+    <td>{{ voyage.longitude }}</td>
+    <td>{{voyage.type}}</td>
+    <td>{{voyage.nbStar}}</td>
+    <td><img class="img-fluid" src="{{voyage.mainPicture?.src}}" alt=""></td>
+    <td>
+      <button (click)="deleteEvent(voyage)" class="btn btn-danger">Supprimer</button>
+      <a [routerLink]="['/admin/edit', voyage?.id]">
+        <button class="btn btn-info">Mettre à jour</button>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>

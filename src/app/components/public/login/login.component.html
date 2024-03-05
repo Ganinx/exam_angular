@@ -1,0 +1,51 @@
+<h1>Formulaire de connexion</h1>
+
+<div *ngIf="isLoading" class="spinner-border" role="status">
+</div>
+
+
+
+<div *ngIf="!isLoading">
+  <form (submit)="loggedUser()" #loginForm="ngForm">
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="username">Username</label>
+        <input type="text" #usernameInput="ngModel" [(ngModel)]="user.username"
+               required class="form-control"
+               [class.is-valid] = "usernameInput.valid"
+               [class.is-invalid] = "!usernameInput.valid"
+               id="username" name="username"
+               placeholder="Nom d'utilisateur">
+        <div *ngIf="usernameInput.valid" class="valid-feedback">
+          Looks good!
+        </div>
+
+        <div *ngIf="!usernameInput.valid" class="invalid-feedback">
+          Veuillez saisir un nom d'utilisateur
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3 w-100">
+        <label for="password">Password</label>
+        <input type="password" name="password" #passwordInput="ngModel" [(ngModel)]="user.password"   [class.is-valid] = "passwordInput.valid"
+               [class.is-invalid] = "!passwordInput.valid" class="form-control" id="password" placeholder="Mot de passe" required>
+
+        <div class="valid-feedback" *ngIf="passwordInput.valid">
+          Looks good!
+        </div>
+        <div *ngIf="!passwordInput.valid" class="invalid-feedback">
+          Veuillez saisir un mot de passe
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="strError" class="text-danger">
+      {{ strError }}
+    </div>
+    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Me connecter !</button>
+  </form>
+
+</div>
+
+<a [routerLink]="['/']">Retourner sur l'application publique</a>
+

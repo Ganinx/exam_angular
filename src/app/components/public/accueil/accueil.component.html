@@ -1,4 +1,4 @@
-<h1>Les voyages</h1>
+<h1 class="text-center">Les voyages</h1>
 
 <div class="ligne" *ngIf="isLoading">
   <div style="margin: auto; margin-bottom: 0">
@@ -6,3 +6,31 @@
     <mat-spinner style="margin: auto"></mat-spinner>
   </div>
 </div>
+
+<div *ngIf="!isLoading" class="flex-wrap d-flex justify-content-around">
+  <mat-card *ngFor="let voyage of voyages" class="example-card my-2">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{voyage.destination}}</mat-card-title>
+      <mat-card-subtitle>{{voyage.nbStar}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{voyage.mainPicture?.src}}" alt="{{voyage.mainPicture?.alt}}">
+    <mat-card-content>
+      <p>
+        {{voyage.type}}
+      </p>
+      <p>
+        LAT:{{voyage.lattitude}} LONT:{{voyage.longitude}}
+      </p>
+      <p>
+        {{voyage.nbStar}} etoiles
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [routerLink]="['',voyage.id]" mat-button>Voir les détails</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
+

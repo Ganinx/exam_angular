@@ -1,7 +1,6 @@
 import {Image} from "./image";
 
-
-export class Voyage {
+export class VoyageForm {
 
   id?:number
   destination?:string
@@ -9,18 +8,18 @@ export class Voyage {
   longitude?:number
   type?:[]
   mainPicture?:Image
-  pictures?:Image[]
   nbStar?:number
+  pictures?:Image[]
 
 
-  constructor(id: number, destination: string, lattitude: number, longitude: number, type: [], mainPicture: Image, pictures: Image[], nbStar: number) {
+  constructor(id?: number, destination?: string, lattitude?: number, longitude?: number, type?: [], mainPicture?: Image, nbStar?: number,pictures?:Image[]) {
     this.id = id;
     this.destination = destination;
     this.lattitude = lattitude;
     this.longitude = longitude;
     this.type = type;
     this.mainPicture = mainPicture;
-    this.pictures = pictures;
     this.nbStar = nbStar;
+    this.pictures = pictures
   }
 }

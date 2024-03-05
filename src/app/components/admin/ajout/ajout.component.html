@@ -1,0 +1,191 @@
+<h1>Ajouter un nouveau véhicule</h1>
+
+<div *ngIf="isLoading" class="spinner-border" role="status">
+</div>
+
+<div>
+  <form *ngIf="!isLoading" (submit)="ajoutVoyage()" #formVoyage="ngForm">
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="destination">Destination du voyage</label>
+        <input type="text" #destination="ngModel" [(ngModel)]="voyage.destination"
+               required class="form-control"
+               [class.is-valid] = "destination.valid"
+               [class.is-invalid] = "!destination.valid"
+               id="destination" name="destination"
+               placeholder="destination">
+        <div *ngIf="destination.valid" class="valid-feedback">
+          Looks good!
+        </div>
+
+        <div *ngIf="!destination.valid" class="invalid-feedback">
+          Veuillez saisir un nom de destination
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="Lattitude">Lattitude</label>
+        <input type="number" #lattitude="ngModel" [(ngModel)]="voyage.lattitude"
+               required class="form-control"
+               [class.is-valid] = "lattitude.valid"
+               [class.is-invalid] = "!lattitude.valid"
+               id="lattitude" name="lattitude"
+               placeholder="lattitude">
+        <div *ngIf="lattitude.valid" class="valid-feedback">
+          Looks good!
+        </div>
+
+        <div *ngIf="!lattitude.valid" class="invalid-feedback">
+          Veuillez saisir une latitude
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="etoile">nombre d'étoile</label>
+        <input type="number" #etoile="ngModel" [(ngModel)]="voyage.nbStar"
+               required class="form-control"
+               [class.is-valid] = "etoile.valid"
+               [class.is-invalid] = "!etoile.valid"
+               id="etoile" name="etoile"
+               placeholder="etoile" max="5">
+        <div *ngIf="etoile.valid" class="valid-feedback">
+          Looks good!
+        </div>
+
+        <div *ngIf="!etoile.valid" class="invalid-feedback">
+          Veuillez saisir un nombre d'étoile
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="longitude">Longitude</label>
+        <input type="number" #longitude="ngModel" [(ngModel)]="voyage.longitude"
+               required class="form-control"
+               [class.is-valid] = "longitude.valid"
+               [class.is-invalid] = "!longitude.valid"
+               id="longitude" name="longitude"
+               placeholder="longitude">
+        <div *ngIf="longitude.valid" class="valid-feedback">
+          Looks good!
+        </div>
+
+        <div *ngIf="!longitude.valid" class="invalid-feedback">
+          Veuillez saisir une longitude
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label>Type de voyage</label>
+        <select required
+                [(ngModel)]="voyage.type"
+                #type="ngModel"
+                [class.is-valid] = "voyage.type"
+                [class.is-invalid] = "!voyage.type"
+                name="type"
+                class="form-select" aria-label="Default select example">
+          <option selected [value]="null">Selectionnez un type</option>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+
+        <div *ngIf="!voyage.type" class="invalid-feedback">
+          Veuillez saisir un type
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="mainPicture">Image principale source</label>
+        <input type="text" #mainPicture="ngModel" [ngModel]="voyage.mainPicture?.src"  (ngModelChange)="onMainPictureChange($event)"
+               class="form-control"
+               [class.is-valid] = "mainPicture.valid"
+               [class.is-invalid] = "!mainPicture.valid"
+               id="mainPicture" name="mainPicture"
+               placeholder="Image du voyage principale" required>
+        <div *ngIf="mainPicture.valid" class="valid-feedback">
+          Looks good!
+        </div>
+        <div *ngIf="!mainPicture.valid" class="invalid-feedback">
+          Veuillez une image principale source
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row" >
+      <div class="col-md-4 mb-3 w-100">
+        <label for="mainPicture">Image principale alternatif</label>
+        <input type="text" #mainPictureAlt="ngModel" [ngModel]="voyage.mainPicture?.alt"  (ngModelChange)="onMainAltPictureChange($event)"
+               class="form-control"
+               [class.is-valid] = "mainPictureAlt.valid"
+               [class.is-invalid] = "!mainPictureAlt.valid"
+               id="mainPictureAlt" name="mainPictureAlt"
+               placeholder="Image du voyage principale">
+        <div *ngIf="mainPictureAlt.valid" class="valid-feedback">
+          Looks good!
+        </div>
+        <div *ngIf="!mainPictureAlt.valid" class="invalid-feedback">
+          Veuillez une image principale alternatif
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row"  *ngFor="let picture of voyage.pictures; let i = index">
+      <div class="col-md-4 mb-3 w-100">
+        <label for="mainPicture">Picture {{i+1}} src</label>
+        <input type="text" #pictures="ngModel"
+               [(ngModel)]="picture.src"
+               class="form-control"
+               [class.is-valid] = "pictures.valid"
+               [class.is-invalid] = "!pictures.valid"
+               id="pictures" name="pictureSrc{{i}}"
+               placeholder="Image du voyage principale">
+        <div *ngIf="pictures.valid" class="valid-feedback">
+          Looks good!
+        </div>
+        <div *ngIf="!pictures.valid" class="invalid-feedback">
+          Veuillez une image principale
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row"  *ngFor="let picture of voyage.pictures; let j = index">
+      <div class="col-md-4 mb-3 w-100">
+        <label for="mainPicture">Picture {{j+1}} alt</label>
+        <input type="text" #picturesAlt="ngModel"
+               [(ngModel)]="picture.alt"
+               class="form-control"
+               [class.is-valid] = "picturesAlt.valid"
+               [class.is-invalid] = "!picturesAlt.valid"
+               id="picturesAlt" name="picturesAlt{{j}}"
+               placeholder="Image du voyage principale">
+        <div *ngIf="picturesAlt.valid" class="valid-feedback">
+          Looks good!
+        </div>
+        <div *ngIf="!picturesAlt.valid" class="invalid-feedback">
+          Veuillez une image principale
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary mb-4" type="button" (click)="addPicture()">Ajouter une image</button>
+
+
+
+
+
+    <button [disabled]="!formVoyage.valid" type="submit" class="btn btn-success">Valider</button>
+  </form>
+</div>
+
+
