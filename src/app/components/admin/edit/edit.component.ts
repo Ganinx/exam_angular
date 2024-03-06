@@ -5,6 +5,7 @@ import {VoyageForm} from "../../../models/voyage-form";
 import {VoyageService} from "../../../services/voyage.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Voyage} from "../../../models/voyage";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +28,8 @@ export class EditComponent {
 
 
   constructor(private voyageService: VoyageService,
-              private activatedRoute: ActivatedRoute, private routerService: Router) {
+              private activatedRoute: ActivatedRoute, private routerService: Router,
+              private toastr:ToastrService) {
   }
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class EditComponent {
     this.voyageService.edit(this.voyageForm).subscribe(data => {
       this.routerService.navigate(["/admin"]);
       this.isLoading = false;
+      this.toastr.success(this.voyage?.destination +" a été modifié")
     })
   }
 

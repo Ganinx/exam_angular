@@ -20,7 +20,7 @@
         {{voyage.type}}
       </p>
       <p>
-        LAT:{{voyage.lattitude}} LONT:{{voyage.longitude}}
+        Latitude:{{voyage.lattitude}}; Longitude:{{voyage.longitude}}
       </p>
       <p>
         {{voyage.nbStar}} etoiles
@@ -28,7 +28,6 @@
     </mat-card-content>
     <mat-card-actions>
       <button [routerLink]="['',voyage.id]" mat-button>Voir les détails</button>
-      <button mat-button>SHARE</button>
     </mat-card-actions>
   </mat-card>
 

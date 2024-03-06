@@ -6,6 +6,7 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Voyage} from "../../../models/voyage";
 import {elementAt} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class AjoutComponent {
   stringError?: string;
 
 
-  constructor(private voyageService: VoyageService, private router: Router) {
+  constructor(private voyageService: VoyageService, private router: Router,private toastr:ToastrService) {
   }
 
   ajoutVoyage() {
@@ -35,6 +36,7 @@ export class AjoutComponent {
     this.voyageService.add(this.voyage).subscribe(data => {
       console.log(this.voyage)
       this.router.navigate(["/admin"]);
+      this.toastr.info(this.voyage.destination + " ajouté")
     }, error => {
 
     })
